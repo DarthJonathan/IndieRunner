@@ -1884,7 +1884,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefabs:
-  - {fileID: 1761585884825964, guid: 1dfd4f6eaadcf4668ab1097f294b6274, type: 2}
+  - {fileID: 1972099416143620, guid: 152a3eeb59b1043a9b4c49ee6f08ca08, type: 2}
+  - {fileID: 1083562230161460, guid: 1dfd4f6eaadcf4668ab1097f294b6274, type: 2}
+  - {fileID: 1833768345905520, guid: 31edd221afe804a7d8f18152b9f1a49d, type: 2}
+  - {fileID: 1074779743272632, guid: e9ec7f5185d23402bbcaf4612dfc3c2b, type: 2}
+  - {fileID: 1691446383233370, guid: 7ca62c5e58faf4f5f85d0e0f76467c86, type: 2}
+  enemyPrefabs2: []
 --- !u!114 &1452373884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1898,7 +1903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupPrefabs:
   - {fileID: 1872372526367620, guid: 715ecd0eb40574fd2881f8bc30f1bd5d, type: 2}
-  populatePowerUp: 8
+  populatePowerUp: 5
 --- !u!1 &1562943651
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,8 +2416,8 @@ GameObject:
   - component: {fileID: 1894206639}
   - component: {fileID: 1894206638}
   - component: {fileID: 1894206640}
-  - component: {fileID: 1894206641}
   - component: {fileID: 1894206642}
+  - component: {fileID: 1894206641}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -2480,6 +2485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpTime: 5
+  jumpLength: 1
 --- !u!61 &1894206641
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2493,7 +2499,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 2.5600007, y: 2.5600007}
+  m_Size: {x: 0.79, y: 2.5600007}
 --- !u!50 &1894206642
 Rigidbody2D:
   serializedVersion: 4
