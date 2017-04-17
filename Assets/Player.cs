@@ -75,6 +75,7 @@ public class Player : MonoBehaviour {
 			Debug.Log("Jumping!");
 			//Animation needs to change from player running to player jumping
 		}
+			
 
 		if (invincible && Time.time > stopJump)
 		{
@@ -82,13 +83,16 @@ public class Player : MonoBehaviour {
 			Debug.Log("Running!");
 			//Animation needs to change from player jumping to player running
 		}
-
-//		for Pause button
-		if (Input.GetKey(KeyCode.P))
-		{
-//					pause screen here
-		}
     }
+
+	void OnGUI ()
+	{
+		//Jumping counter
+		if (Time.time < stopJump && invincible) {
+			Debug.Log (stopJump - Time.deltaTime);
+			GUI.Box(new Rect(Screen.width/2 - 40,20,80,50), (stopJump - Time.time).ToString("f0"));
+		}
+	}
 
 //	If collided with something
 	void OnTriggerEnter2D(Collider2D collider)
@@ -96,7 +100,7 @@ public class Player : MonoBehaviour {
 		if (collider.tag == "Enemy" && !invincible) {
 //			Debug.Log ("Collided With Enemy");
 			isAlive = false;
-		} else {
+		} else if(collider.tag == "PowerUp"){
 //			Debug.Log ("Collided With PowerUp");
 			isPoweredUp = true;
 		}

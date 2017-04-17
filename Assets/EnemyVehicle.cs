@@ -34,10 +34,5 @@ public class EnemyVehicle : MonoBehaviour {
                 Destroy(gameObject);
             }
         }
-
-
-
-       
-
     }
 }
