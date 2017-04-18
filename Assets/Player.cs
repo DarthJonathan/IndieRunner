@@ -12,7 +12,10 @@ public class Player : MonoBehaviour {
 	public static float playerScore;
 	private bool invincible = false;
 	private float stopJump = 0;
-	public float jumpLength = 0;
+	public float jumpLength;
+	private float stopJumpAnim = 0;
+	Vector3 jumpingPos;
+	Animator animator;
 
 
 	// Use this for initialization
@@ -21,6 +24,9 @@ public class Player : MonoBehaviour {
 		isAlive = true;
 		Time.timeScale = 1f;
 		playerScore = 0;
+		jumpingPos = position;
+
+		animator = GetComponent<Animator> ();
 	}
 
 	void FixedUpdate ()
@@ -47,24 +53,24 @@ public class Player : MonoBehaviour {
 
         transform.position = position;
 
-		if (Input.GetKeyDown(KeyCode.UpArrow) && position.y < 2)
+		if (Input.GetKeyDown(KeyCode.UpArrow) && position.y < 5)
         {
-            position = new Vector3(position.x, position.y + 2, position.z);
+            position = new Vector3(position.x, position.y + 5, position.z);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && position.y > -2)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && position.y > -5)
         {
-            position = new Vector3(position.x, position.y -2, position.z);
+            position = new Vector3(position.x, position.y -5, position.z);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow) && position.x < 19)
+        if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
         {
-            position = new Vector3(position.x + 10 * Time.deltaTime, position.y, position.z);
+            position = new Vector3(position.x + 15 * Time.deltaTime, position.y, position.z);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && position.x > 1)
+        if (Input.GetKey(KeyCode.LeftArrow) && position.x > -6)
         {
-            position = new Vector3(position.x - 10 * Time.deltaTime, position.y, position.z);
+            position = new Vector3(position.x - 15 * Time.deltaTime, position.y, position.z);
         }
 
 		//Jumping
@@ -72,16 +78,30 @@ public class Player : MonoBehaviour {
 		{
 			invincible = true;
 			stopJump = Time.time + jumpLength;
-			Debug.Log("Jumping!");
-			//Animation needs to change from player running to player jumping
+			stopJumpAnim = stopJump + 0.3f;
+
+			animator.SetTrigger ("isJumping");
+
+			jumpingPos = new Vector3 (position.x, position.y + 3, position.z);
 		}
 			
 
 		if (invincible && Time.time > stopJump)
 		{
 			invincible = false;
-			Debug.Log("Running!");
+			jumpingPos = new Vector3 (position.x, position.y - 3, position.z);
 			//Animation needs to change from player jumping to player running
+		}
+
+		//		smooth animation for jumping
+		if (Time.time < stopJump - jumpLength/2) {
+			position = Vector3.Lerp (position, jumpingPos, 7 * Time.deltaTime);
+
+		} 
+
+		//		smooth animation for landing after jumping
+		if(Time.time < stopJumpAnim){
+			position = Vector3.Lerp (position, jumpingPos, 7 * Time.deltaTime);
 		}
     }
 
@@ -89,7 +109,6 @@ public class Player : MonoBehaviour {
 	{
 		//Jumping counter
 		if (Time.time < stopJump && invincible) {
-			Debug.Log (stopJump - Time.deltaTime);
 			GUI.Box(new Rect(Screen.width/2 - 40,20,80,50), (stopJump - Time.time).ToString("f0"));
 		}
 	}
