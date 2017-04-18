@@ -78,8 +78,7 @@ public class Player : MonoBehaviour {
 		{
 			invincible = true;
 			stopJump = Time.time + jumpLength;
-			stopJumpAnim = stopJump + 0.3f;
-
+			stopJumpAnim = stopJump + 0.5f;
 			animator.SetTrigger ("isJumping");
 
 			jumpingPos = new Vector3 (position.x, position.y + 3, position.z);
@@ -101,7 +100,7 @@ public class Player : MonoBehaviour {
 
 		//		smooth animation for landing after jumping
 		if(Time.time < stopJumpAnim){
-			position = Vector3.Lerp (position, jumpingPos, 7 * Time.deltaTime);
+			position = Vector3.Lerp (position, jumpingPos, 10 * Time.deltaTime);
 		}
     }
 
