@@ -19,7 +19,7 @@ public class EnemyVehicle : MonoBehaviour {
     {
         transform.Translate(direction * speed * Time.deltaTime);
 
-        if (transform.position.x < -2)
+        if (transform.position.x < -15)
         {
             int childC = gameObject.transform.parent.childCount;
 
