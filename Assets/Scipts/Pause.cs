@@ -68,13 +68,17 @@ public class Pause : MonoBehaviour {
 //			Stop the game
 			Time.timeScale = 0;
 			// Make a background box
-			GUI.Box (new Rect (0, 0, Screen.width, Screen.height), "");
+			GUI.Box (new Rect (0, 0, Screen.width, Screen.height), "", gameOverStyle);
 
 			//			Make a GUI Box Pause
-			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game Over");
+			GUI.Box(new Rect (Screen.width / 2 - 375, Screen.height / 2 - 250, 750, 500), menuBackground, gameOverStyle);
+			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game Over", gameOverStyle);
+
+			//			Display score
+			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 40, 250, 250), "Your Score is : " + Player.playerScore.ToString("f0"), scorePauseStyle);
 
 			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-			if (GUI.Button (new Rect (Screen.width / 2 - 60, Screen.height / 2 - 50, 120, 20), "Restart Game")) {
+			if (GUI.Button (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 10, 150, 150), "", restartBtn)) {
 				SceneManager.LoadScene ("GamePlay");
 			}
 		}
