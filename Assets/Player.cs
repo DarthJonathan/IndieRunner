@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 	private bool invincible = false;
 	private float stopJump = 0;
 	public float jumpLength;
-	private float stopJumpAnim = 0;
+	private bool hopping = false;
 	Vector3 jumpingPos;
 	Animator animator;
 
@@ -53,22 +53,22 @@ public class Player : MonoBehaviour {
 
         transform.position = position;
 
-		if (Input.GetKeyDown(KeyCode.UpArrow) && position.y < 5)
+		if (Input.GetKeyDown(KeyCode.UpArrow) && position.y < 5 && !invincible)
         {
             position = new Vector3(position.x, position.y + 5, position.z);
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && position.y > -5)
+		if (Input.GetKeyDown(KeyCode.DownArrow) && position.y > -5 && !invincible)
         {
             position = new Vector3(position.x, position.y -5, position.z);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
+		if (Input.GetKey(KeyCode.RightArrow) && position.x < 23 && !invincible)
         {
             position = new Vector3(position.x + 15 * Time.deltaTime, position.y, position.z);
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) && position.x > -6)
+		if (Input.GetKey(KeyCode.LeftArrow) && position.x > -6 && !invincible)
         {
             position = new Vector3(position.x - 15 * Time.deltaTime, position.y, position.z);
         }
@@ -78,31 +78,39 @@ public class Player : MonoBehaviour {
 		{
 			invincible = true;
 			stopJump = Time.time + jumpLength;
-			stopJumpAnim = stopJump + 0.5f;
 			animator.SetTrigger ("isJumping");
 
-			jumpingPos = new Vector3 (position.x, position.y + 3, position.z);
+//			Jumping animation
+			StartCoroutine (isJumping (0.75f, 5f));
 		}
 			
 
 		if (invincible && Time.time > stopJump)
 		{
 			invincible = false;
-			jumpingPos = new Vector3 (position.x, position.y - 3, position.z);
-			//Animation needs to change from player jumping to player running
-		}
-
-		//		smooth animation for jumping
-		if (Time.time < stopJump - jumpLength/2) {
-			position = Vector3.Lerp (position, jumpingPos, 7 * Time.deltaTime);
-
-		} 
-
-		//		smooth animation for landing after jumping
-		if(Time.time < stopJumpAnim){
-			position = Vector3.Lerp (position, jumpingPos, 10 * Time.deltaTime);
 		}
     }
+
+//	Jumping jump animation
+	IEnumerator isJumping (float time, float hopHeight)
+	{
+		if(hopping) yield break;
+
+		hopping = true;
+		var startPos = transform.position;
+		Vector3 endPos = transform.position;
+		endPos.x += 3;
+		var timer = 0.0f;
+
+		while (timer <= 1.0f) {
+			var height = Mathf.Sin(Mathf.PI * timer) * hopHeight;
+			transform.position = Vector3.Lerp(startPos, endPos, timer) + Vector3.up * height; 
+
+			timer += Time.deltaTime / time;
+			yield return null;
+		}
+		hopping = false;
+	}
 
 	void OnGUI ()
 	{
