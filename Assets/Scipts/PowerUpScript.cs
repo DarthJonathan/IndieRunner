@@ -17,7 +17,7 @@ public class PowerUpScript : MonoBehaviour {
 
 		transform.Translate(direction * speed * Time.deltaTime);
 
-		if (transform.position.x < -2)
+		if (transform.position.x < -18)
 		{
 			Destroy (gameObject);
 		}
