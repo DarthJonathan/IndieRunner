@@ -9,7 +9,7 @@ public class BuildingScrolling : MonoBehaviour {
 
 	void Start ()
 	{
-		startPlace = new Vector3 (40, transform.position.y, transform.position.z);
+		startPlace = new Vector3 (45, transform.position.y, transform.position.z);
 	}
 	
 	// Update is called once per frame
