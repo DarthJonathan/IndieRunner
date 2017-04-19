@@ -469,6 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpTime: 5
+  bookPoints: 50
   ScoreBox:
     m_Name: 
     m_Normal:

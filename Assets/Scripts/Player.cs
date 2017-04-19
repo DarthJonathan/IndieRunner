@@ -13,6 +13,8 @@ public class Player : MonoBehaviour {
     public static bool isAlive;
     public static float playerScore;
 
+	public float bookPoints;
+
     private bool invincible = false;
     private float stopJump = 0;
     Animator animator;
@@ -221,11 +223,13 @@ public class Player : MonoBehaviour {
 	{
 		if (collider.tag == "Enemy" && !invincible) {
 //			Debug.Log ("Collided With Enemy");
-			source.PlayOneShot(carHorn);
+			source.PlayOneShot (carHorn);
 			isAlive = false;
-		} else if(collider.tag == "PowerUp"){
+		} else if (collider.tag == "PowerUp") {
 //			Debug.Log ("Collided With PowerUp");
 			isPoweredUp = true;
+		} else if (collider.tag == "Book") {
+			playerScore += bookPoints;
 		}
 	}
 

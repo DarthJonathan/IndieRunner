@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - PowerUp
+  - Book
   layers:
   - Default
   - TransparentFX
