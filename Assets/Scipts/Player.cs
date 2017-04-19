@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
 	public AudioClip carHorn;
 	private float runningTimer;
 	private float trafficTimer;
+	private float bgmTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -145,6 +146,12 @@ public class Player : MonoBehaviour {
 		if (Time.time > trafficTimer) {
 			trafficTimer = Time.time + trafficSound.length;
 			source.PlayOneShot (trafficSound);
+		}
+
+//		BGM sound
+		if (Time.time > bgmTimer) {
+			bgmTimer = Time.time + bgm.length;
+			source.PlayOneShot (bgm);
 		}
 			
 
