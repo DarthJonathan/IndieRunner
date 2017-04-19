@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour {
 
-	private int counter = 0;
 	public List<GameObject> enemyPrefabs = new List<GameObject>(0);
 	public List<GameObject> enemyPrefabs2 = new List<GameObject>(0);
-	private float createEnemies = 0;
-	private float createSpeed = 5;
-	private float increaseDifficulty = 1;
+	public static float increaseDifficulty = 1;
 	private int enemyCount = 0;
-	private int boolCount = 0;
 	GameObject newEnemies;
 	Transform cars;
 

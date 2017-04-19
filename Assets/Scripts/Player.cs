@@ -4,62 +4,60 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	private Vector3 position;
+    private Vector3 position;
 
     public float powerUpTime = 5;
     private bool isPoweredUp = false;
-	private float powerupPassed = 0;
+    private float powerupPassed = 0;
 
-	public static bool isAlive;
-	public static float playerScore;
+    public static bool isAlive;
+    public static float playerScore;
 
-	private bool invincible = false;
-	private float stopJump = 0;
-	public float jumpLength;
-	private bool hopping = false;
-	Animator animator;
+    private bool invincible = false;
+    private float stopJump = 0;
+    Animator animator;
 
     private Vector3 endPos;
     private float timer = 0;
 
     private lanes lane;
 
-	public GUIStyle ScoreBox;
+    public GUIStyle ScoreBox;
 
-	// Use this for initialization
-	void Start () {
-		position = transform.position;
-		isAlive = true;
-		Time.timeScale = 1f;
-		playerScore = 0;
+    // Use this for initialization
+    void Start() {
+        position = transform.position;
+        isAlive = true;
+        Time.timeScale = 1f;
+        playerScore = 0;
 
-		animator = GetComponent<Animator> ();
+        animator = GetComponent<Animator>();
         endPos = transform.position;
 
         lane = lanes.lane2;
     }
 
-    void FixedUpdate ()
-	{
-		if (isPoweredUp) {
+    void FixedUpdate()
+    {
+        if (isPoweredUp) {
 
-			Destroy(GameObject.FindGameObjectWithTag("PowerUp"));
+            Destroy(GameObject.FindGameObjectWithTag("PowerUp"));
 
-			if (powerupPassed > powerUpTime) {
-				Time.timeScale = 1f;
-				isPoweredUp = false;
-				powerupPassed = 0;
-			} else {
-				Time.timeScale = 0.5f;
-				powerupPassed += Time.deltaTime*2;
-			}
-		}
+            if (powerupPassed > powerUpTime) {
+                Time.timeScale = 1f;
+                isPoweredUp = false;
+                powerupPassed = 0;
+            } else {
+                Time.timeScale = 0.5f;
+                powerupPassed += Time.deltaTime * 2;
+            }
+        }
 
-		playerScore += Time.deltaTime*10;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        playerScore += Time.deltaTime * 10;
+    }
+
+    // Update is called once per frame
+    void Update() {
 
         transform.position = position;
 
@@ -80,7 +78,7 @@ public class Player : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            switch(lane)
+            switch (lane)
             {
                 case lanes.lane1:
                     break;
@@ -93,10 +91,10 @@ public class Player : MonoBehaviour {
                 default:
                     lane = lanes.lane2;
                     break;
-            }               
+            }
         }
 
-		if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             switch (lane)
             {
@@ -114,25 +112,24 @@ public class Player : MonoBehaviour {
             }
         }
 
-		if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
+        if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
         {
-                position = new Vector3(position.x + 15 * Time.deltaTime, position.y, position.z);
+            position = new Vector3(position.x + 15 * Time.deltaTime, position.y, position.z);
         }
 
-		if (Input.GetKey(KeyCode.LeftArrow) && position.x > -5)
+        if (Input.GetKey(KeyCode.LeftArrow) && position.x > -5)
         {
-                position = new Vector3(position.x - 15 * Time.deltaTime, position.y, position.z);
+            position = new Vector3(position.x - 15 * Time.deltaTime, position.y, position.z);
         }
 
         //Jumping
         if (Input.GetKeyDown(KeyCode.Space) && !invincible)
-		{
-			invincible = true;
-			stopJump = Time.time + jumpLength;
-			animator.SetTrigger ("isJumping");
+        {
+            //invincible = true;
+            animator.SetTrigger("isJumping");
 
             timer = 0.0f;
-            endPos = position;
+            endPos = new Vector3(position.x + 6, position.y, position.z);
 
         }
         if (timer <= 1)
@@ -150,21 +147,35 @@ public class Player : MonoBehaviour {
             {
                 endPos = new Vector3(position.x, position.y - 5 * Time.deltaTime, position.z);
             }
-            if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
-            {
-                endPos = new Vector3(position.x + 15 * Time.deltaTime, position.y - height, position.z);
-            }
+            //if (Input.GetKey(KeyCode.RightArrow) && position.x < 23)
+            //{
+            //    endPos = new Vector3(position.x + 15 * Time.deltaTime, position.y - height, position.z);
+            //}
 
-            if (Input.GetKey(KeyCode.LeftArrow) && position.x > -5)
-            {
-                endPos = new Vector3(position.x - 15 * Time.deltaTime, position.y - height, position.z);
-            }
+            //if (Input.GetKey(KeyCode.LeftArrow) && position.x > -5)
+            //{
+            //    endPos = new Vector3(position.x - 15 * Time.deltaTime, position.y - height, position.z);
+            //}
+
         }
 
-        if (invincible && Time.time > stopJump)
-		{
-			invincible = false;
-		}
+        //Reset the speed and difficulty for if they restart;
+        if (!isAlive)
+        {
+            EnemyVehicle.speed = 10;
+            EnemySpawn.increaseDifficulty = 1;
+        }
+
+    }
+
+    void JumpStart()
+    {
+        invincible = true;
+    }
+
+    void JumpEnd()
+    {
+        invincible = false;
     }
 
 	void OnGUI ()
@@ -186,6 +197,16 @@ public class Player : MonoBehaviour {
 			isPoweredUp = true;
 		}
 	}
+
+    //Needed because otherwise jump is broken 
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.tag == "Enemy" && !invincible)
+        {
+            //			Debug.Log ("Collided With Enemy");
+            isAlive = false;
+        }
+    }
 
     public enum lanes
     {
