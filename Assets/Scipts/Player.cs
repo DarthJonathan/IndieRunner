@@ -26,6 +26,10 @@ public class Player : MonoBehaviour {
 
 	public GUIStyle ScoreBox;
 
+	private AudioSource source;
+	public AudioClip runningSound;
+	private float runningTimer;
+
 	// Use this for initialization
 	void Start () {
 		position = transform.position;
@@ -37,6 +41,8 @@ public class Player : MonoBehaviour {
         endPos = transform.position;
 
         lane = lanes.lane2;
+
+		source = GetComponent<AudioSource> ();
     }
 
     void FixedUpdate ()
@@ -123,6 +129,14 @@ public class Player : MonoBehaviour {
         {
                 position = new Vector3(position.x - 15 * Time.deltaTime, position.y, position.z);
         }
+
+
+//		Running sound
+		if (Time.time > runningTimer - 2.3f) {
+			runningTimer = Time.time + runningSound.length;
+			source.PlayOneShot (runningSound);
+		}
+			
 
         //Jumping
         if (Input.GetKeyDown(KeyCode.Space) && !invincible)
