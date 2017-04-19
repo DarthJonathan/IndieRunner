@@ -164,6 +164,7 @@ public class Player : MonoBehaviour {
         {
             EnemyVehicle.speed = 10;
             EnemySpawn.increaseDifficulty = 1;
+            //EnemySpawn.harder = false;
         }
 
     }
