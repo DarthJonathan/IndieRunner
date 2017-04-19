@@ -30,6 +30,7 @@ public class Player : MonoBehaviour {
 	public AudioClip runningSound;
 	public AudioClip trafficSound;
 	public AudioClip carHorn;
+	public AudioClip collectiblesSound;
 	private float runningTimer;
 	private float trafficTimer;
 	private float bgmTimer;
@@ -230,6 +231,8 @@ public class Player : MonoBehaviour {
 			isPoweredUp = true;
 		} else if (collider.tag == "Book") {
 			playerScore += bookPoints;
+			Destroy (collider.gameObject);
+			source.PlayOneShot (collectiblesSound);
 		}
 	}
 
