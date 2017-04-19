@@ -14,6 +14,15 @@ public class Pause : MonoBehaviour {
 	public GUIStyle pauseStyle = new GUIStyle();
 	public GUIStyle scorePauseStyle;
 	public GUIStyle scoreBox;
+	private Color red = new Color (0.56f, 0.23f, 0.29f);
+
+	void Start ()
+	{
+		scoreBox.normal.textColor = Color.white;
+		pauseStyle.normal.textColor = red;
+		scorePauseStyle.normal.textColor = red;
+		gameOverStyle.normal.textColor = red;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,7 +59,7 @@ public class Pause : MonoBehaviour {
 
 //			Make a GUI Box Pause
 			GUI.Box(new Rect (Screen.width / 2 - 375, Screen.height / 2 - 250, 750, 500), menuBackground, pauseStyle);
-			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game is Paused", pauseStyle);
+			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 160, 250, 250), "Game is Paused", pauseStyle);
 
 			//			Display score
 			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 10, 250, 250), "Your Score is : " + Player.playerScore.ToString("f0"), scorePauseStyle);
