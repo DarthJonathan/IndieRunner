@@ -81,7 +81,10 @@ public class Player : MonoBehaviour {
 			animator.SetTrigger ("isJumping");
 
 //			Jumping animation
-			StartCoroutine (isJumping (0.75f, 5f));
+			Vector3 endPos = transform.position;
+			endPos.x += 4;
+			StartCoroutine (isJumping (0.75f, 5f, endPos));
+			position = endPos;
 		}
 			
 
@@ -92,14 +95,12 @@ public class Player : MonoBehaviour {
     }
 
 //	Jumping jump animation
-	IEnumerator isJumping (float time, float hopHeight)
+	IEnumerator isJumping (float time, float hopHeight, Vector3 endPos)
 	{
 		if(hopping) yield break;
 
 		hopping = true;
 		var startPos = transform.position;
-		Vector3 endPos = transform.position;
-		endPos.x += 3;
 		var timer = 0.0f;
 
 		while (timer <= 1.0f) {
