@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour {
 
-	private bool isPaused = false;
+	public static bool isPaused = false;
 	public Texture menuBackground;
 	public Texture scoreBoxBackground;
 	public GUIStyle pauseBtn;
@@ -26,6 +26,7 @@ public class Pause : MonoBehaviour {
 		scorePauseStyle.normal.textColor = red;
 		gameOverStyle.normal.textColor = red;
 		source = GetComponent<AudioSource> ();
+		isPaused = false;
 	}
 	
 	// Update is called once per frame

@@ -19,7 +19,7 @@ public class BuildingScrolling : MonoBehaviour {
 
 		if (transform.position.x < endX && Player.isAlive) {
 			transform.position = startPlace;
-		} else if(Player.isAlive){
+		} else if(Player.isAlive && !Pause.isPaused){
 			transform.position = new Vector3 (transform.position.x - speed, transform.position.y, transform.position.z);
 		}
 		
