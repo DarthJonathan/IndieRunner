@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour {
 
 	private bool isPaused = false;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+	public Texture menuBackground;
+	public GUIStyle pauseBtn;
+	public GUIStyle restartBtn;
+	public GUIStyle gameOverStyle = new GUIStyle();
+	public GUIStyle pauseStyle = new GUIStyle();
+	public GUIStyle scorePauseStyle;
 	
 	// Update is called once per frame
 	void Update () {
@@ -41,16 +42,27 @@ public class Pause : MonoBehaviour {
 //		Paus
 		if (isPaused && Player.isAlive) {
 			
-			// Make a background box
-			GUI.Box (new Rect (0, 0, Screen.width, Screen.height), "");
+			// Make a black background box
+			GUI.Box (new Rect (0, 0, Screen.width, Screen.height),"",pauseStyle);
 
 //			Make a GUI Box Pause
-			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game Is Paused");
+			GUI.Box(new Rect (Screen.width / 2 - 375, Screen.height / 2 - 250, 750, 500), menuBackground, pauseStyle);
+			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game is Paused", pauseStyle);
 
-			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
-			if (GUI.Button (new Rect (Screen.width / 2 - 40, Screen.height / 2 - 50, 80, 20), "Resume")) {
+			//			Display score
+			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 10, 250, 250), "Your Score is : " + Player.playerScore.ToString("f0"), scorePauseStyle);
+
+
+			// Resume Button
+			if (GUI.Button (new Rect (Screen.width / 2 - 110, Screen.height / 2 + 40, 100, 100),"", pauseBtn)) {
 				togglePause ();
 			}
+
+			// Restart Button
+			if (GUI.Button (new Rect (Screen.width / 2 + 20, Screen.height / 2 + 40, 100, 100),"", restartBtn)) {
+				SceneManager.LoadScene ("GamePlay");
+			}
+
 		} else if (Player.isAlive == false) {
 
 //			Stop the game
