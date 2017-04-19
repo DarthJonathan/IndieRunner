@@ -24,6 +24,8 @@ public class Player : MonoBehaviour {
 
     private lanes lane;
 
+	public GUIStyle ScoreBox;
+
 	// Use this for initialization
 	void Start () {
 		position = transform.position;
@@ -169,7 +171,7 @@ public class Player : MonoBehaviour {
 	{
 		//Jumping counter
 		if (Time.time < stopJump && invincible) {
-			GUI.Box(new Rect(Screen.width/2 - 40,20,80,50), (stopJump - Time.time).ToString("f0"));
+			GUI.Box(new Rect(Screen.width/2 - 40,20,80,50), (stopJump - Time.time).ToString("f0"), ScoreBox);
 		}
 	}
 

@@ -7,11 +7,13 @@ public class Pause : MonoBehaviour {
 
 	private bool isPaused = false;
 	public Texture menuBackground;
+	public Texture scoreBoxBackground;
 	public GUIStyle pauseBtn;
 	public GUIStyle restartBtn;
 	public GUIStyle gameOverStyle = new GUIStyle();
 	public GUIStyle pauseStyle = new GUIStyle();
 	public GUIStyle scorePauseStyle;
+	public GUIStyle scoreBox;
 	
 	// Update is called once per frame
 	void Update () {
@@ -36,8 +38,9 @@ public class Pause : MonoBehaviour {
 
 	void OnGUI ()
 	{
-//		Score
-		GUI.Box(new Rect(20,20,80,50), Player.playerScore.ToString("f0"));
+		//		Score
+		GUI.Box(new Rect(20,20,160,100), scoreBoxBackground, scoreBox);
+		GUI.Box(new Rect(20,20,160,100), Player.playerScore.ToString("f0"), scoreBox);
 
 //		Paus
 		if (isPaused && Player.isAlive) {
