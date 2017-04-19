@@ -27,8 +27,12 @@ public class Player : MonoBehaviour {
 	public GUIStyle ScoreBox;
 
 	private AudioSource source;
+	public AudioClip bgm;
 	public AudioClip runningSound;
+	public AudioClip trafficSound;
+	public AudioClip carHorn;
 	private float runningTimer;
+	private float trafficTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -136,6 +140,12 @@ public class Player : MonoBehaviour {
 			runningTimer = Time.time + runningSound.length;
 			source.PlayOneShot (runningSound);
 		}
+
+//		traffic sound
+		if (Time.time > trafficTimer) {
+			trafficTimer = Time.time + trafficSound.length;
+			source.PlayOneShot (trafficSound);
+		}
 			
 
         //Jumping
@@ -194,6 +204,7 @@ public class Player : MonoBehaviour {
 	{
 		if (collider.tag == "Enemy" && !invincible) {
 //			Debug.Log ("Collided With Enemy");
+			source.PlayOneShot(carHorn);
 			isAlive = false;
 		} else if(collider.tag == "PowerUp"){
 //			Debug.Log ("Collided With PowerUp");

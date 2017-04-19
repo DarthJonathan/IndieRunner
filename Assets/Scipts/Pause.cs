@@ -16,12 +16,16 @@ public class Pause : MonoBehaviour {
 	public GUIStyle scoreBox;
 	private Color red = new Color (0.56f, 0.23f, 0.29f);
 
+	private AudioSource source;
+	public AudioClip buttonPressed;
+
 	void Start ()
 	{
 		scoreBox.normal.textColor = Color.white;
 		pauseStyle.normal.textColor = red;
 		scorePauseStyle.normal.textColor = red;
 		gameOverStyle.normal.textColor = red;
+		source = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -30,6 +34,7 @@ public class Pause : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			togglePause ();
+			source.PlayOneShot (buttonPressed);
 		}
 		
 	}
@@ -68,11 +73,13 @@ public class Pause : MonoBehaviour {
 			// Resume Button
 			if (GUI.Button (new Rect (Screen.width / 2 - 110, Screen.height / 2 + 40, 100, 100),"", pauseBtn)) {
 				togglePause ();
+				source.PlayOneShot (buttonPressed);
 			}
 
 			// Restart Button
 			if (GUI.Button (new Rect (Screen.width / 2 + 20, Screen.height / 2 + 40, 100, 100),"", restartBtn)) {
 				SceneManager.LoadScene ("GamePlay");
+				source.PlayOneShot (buttonPressed);
 			}
 
 		} else if (Player.isAlive == false) {
@@ -92,6 +99,7 @@ public class Pause : MonoBehaviour {
 			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 			if (GUI.Button (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 10, 150, 150), "", restartBtn)) {
 				SceneManager.LoadScene ("GamePlay");
+				source.PlayOneShot (buttonPressed);
 			}
 		}
 	}
