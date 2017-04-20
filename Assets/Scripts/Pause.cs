@@ -94,8 +94,20 @@ public class Pause : MonoBehaviour {
 			GUI.Box(new Rect (Screen.width / 2 - 375, Screen.height / 2 - 250, 750, 500), menuBackground, gameOverStyle);
 			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 125, 250, 250), "Game Over", gameOverStyle);
 
-			//			Display score
-			GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 40, 250, 250), "Your Score is : " + Player.playerScore.ToString("f0"), scorePauseStyle);
+			if (Player.playerScore > (float)highScoresScript.highScore) {
+				//			High Score
+				GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 40, 250, 250), "New High Score! : " +  Player.playerScore.ToString ("f0"), scorePauseStyle);
+
+				highScoresScript.setHighScore ((int)Player.playerScore);
+
+			} else {
+				
+				//			Display score
+				GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 20, 250, 250), "Your Score is : " + Player.playerScore.ToString ("f0"), scorePauseStyle);
+
+				//			High Score
+				GUI.Box (new Rect (Screen.width / 2 - 125, Screen.height / 2 - 60, 250, 250), "High Score is : " + highScoresScript.highScore.ToString(), scorePauseStyle);
+			}
 
 			// Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
 			if (GUI.Button (new Rect (Screen.width / 2 - 75, Screen.height / 2 + 10, 150, 150), "", restartBtn)) {

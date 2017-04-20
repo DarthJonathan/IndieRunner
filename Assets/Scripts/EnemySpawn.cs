@@ -40,7 +40,7 @@ public class EnemySpawn : MonoBehaviour {
 	void Update ()
     {
 
-		if (cars.position.x < -5)
+		if (cars.position.x < -10)
 		{
 			newEnemies = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)]);
 			newEnemies.SetActive(true);

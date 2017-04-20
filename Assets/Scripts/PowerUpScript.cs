@@ -9,7 +9,9 @@ public class PowerUpScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		speed = EnemyVehicle.speed;
+
 	}
 	
 	// Update is called once per frame

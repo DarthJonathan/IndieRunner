@@ -11,13 +11,14 @@ public class PlayerMainMenu : MonoBehaviour {
 	void Start () {
 
 		pos = Camera.main.WorldToViewportPoint(transform.position);
+		transform.position = new Vector3 (pos.x + 160, transform.position.y, transform.position.z);
 		
 	}
 
 	// Update is called once per frame
 	void Update () {
 
-		transform.position = new Vector3 (pos.x + 60, transform.position.y, transform.position.z);
+		transform.position = new Vector3 (pos.x + 160, transform.position.y, transform.position.z);
 		
 	}
 }

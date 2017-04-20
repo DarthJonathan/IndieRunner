@@ -226,7 +226,7 @@ public class Player : MonoBehaviour {
 		if (collider.tag == "Enemy" && !invincible) {
 //			Debug.Log ("Collided With Enemy");
 			source.PlayOneShot (carHorn);
-//			isAlive = false;
+			isAlive = false;
 		} else if (collider.tag == "PowerUp") {
 //			Debug.Log ("Collided With PowerUp");
 			isPoweredUp = true;
@@ -244,7 +244,7 @@ public class Player : MonoBehaviour {
         if (collider.tag == "Enemy" && !invincible)
         {
             //			Debug.Log ("Collided With Enemy");
-//            isAlive = false;
+            isAlive = false;
         }
     }
 
