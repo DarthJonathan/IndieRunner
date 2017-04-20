@@ -43,11 +43,13 @@ public class EnemySpawn : MonoBehaviour {
 		if (Time.time > increaseDifficulty && increaseDifficulty <=90)
 		{
 			EnemyVehicle.speed += 0.5f;
+			PowerUpScript.speed += 0.5f;
 			increaseDifficulty = Time.time + 30;
 		}
 		if (Time.time > increaseDifficulty && increaseDifficulty > 90 && increaseDifficulty < 5000)
 		{
 			EnemyVehicle.speed += 0.1f;
+			PowerUpScript.speed += 0.1f;
 			increaseDifficulty = Time.time + 50;
 		}
 

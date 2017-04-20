@@ -225,13 +225,14 @@ public class Player : MonoBehaviour {
 		if (collider.tag == "Enemy" && !invincible) {
 //			Debug.Log ("Collided With Enemy");
 			source.PlayOneShot (carHorn);
-			isAlive = false;
+//			isAlive = false;
 		} else if (collider.tag == "PowerUp") {
 //			Debug.Log ("Collided With PowerUp");
 			isPoweredUp = true;
 		} else if (collider.tag == "Book") {
 			playerScore += bookPoints;
 			Destroy (collider.gameObject);
+//			Debug.Log(collider.tag);
 			source.PlayOneShot (collectiblesSound);
 		}
 	}
@@ -242,7 +243,7 @@ public class Player : MonoBehaviour {
         if (collider.tag == "Enemy" && !invincible)
         {
             //			Debug.Log ("Collided With Enemy");
-            isAlive = false;
+//            isAlive = false;
         }
     }
 
