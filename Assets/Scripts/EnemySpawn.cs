@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour {
 
 	public List<GameObject> enemyPrefabs = new List<GameObject>(0);
-	public List<GameObject> enemyPrefabs2 = new List<GameObject>(0);
 	public static float increaseDifficulty = 1;
 	private int enemyCount = 0;
 	GameObject newEnemies;
@@ -13,16 +12,30 @@ public class EnemySpawn : MonoBehaviour {
 
 	void Start ()
 	{
-		//			New Objects for enemy
-		newEnemies = Instantiate (enemyPrefabs [Random.Range (0, enemyPrefabs.Count)]);
+        
+        //			New Objects for enemy
+        newEnemies = Instantiate(enemyPrefabs[Random.Range(0, enemyPrefabs.Count)]);
+    
+            //			Activate the enemy
+            newEnemies.SetActive(true);
 
-		//			Activate the enemy
-		newEnemies.SetActive (true);
+            enemyCount = newEnemies.gameObject.transform.childCount;
+            cars = newEnemies.gameObject.transform.GetChild(enemyCount - 1);
+        
+        //else
+        //{
+        //    //			New Objects for enemy
+        //    newEnemies = Instantiate(enemyPrefabs2[Random.Range(0, enemyPrefabs.Count)]);
 
-		enemyCount = newEnemies.gameObject.transform.childCount;
-		cars = newEnemies.gameObject.transform.GetChild(enemyCount -1);
+        //    //			Activate the enemy
+        //    newEnemies.SetActive(true);
+
+        //    enemyCount = newEnemies.gameObject.transform.childCount;
+        //    cars = newEnemies.gameObject.transform.GetChild(enemyCount - 1);
+        //}
 	}
 	
+    
 	// Update is called once per frame
 	void Update ()
     {
@@ -34,11 +47,6 @@ public class EnemySpawn : MonoBehaviour {
 			enemyCount = newEnemies.gameObject.transform.childCount;
 			cars = newEnemies.gameObject.transform.GetChild(enemyCount -1);
 		}
-
-		//if (cars.position.x < -2)
-		//{
-		//	Destroy(newEnemies);
-		//}
 
 		if (Time.time > increaseDifficulty && increaseDifficulty <=90)
 		{
